@@ -11,11 +11,15 @@ const send = async (payload) => {
     console.warn('[email] RESEND_FROM_EMAIL not set — skipping email')
     return
   }
-  const { data, error } = await resend.emails.send(payload)
+  // RESEND_TEST_EMAIL overrides recipient — use when sending from onboarding@resend.dev
+  // (Resend sandbox only delivers to the account owner's email)
+  const to = process.env.RESEND_TEST_EMAIL || payload.to
+  const { data, error } = await resend.emails.send({ ...payload, to })
   if (error) {
     console.error('[email] Resend error:', JSON.stringify(error))
     throw error
   }
+  console.log(`[email] Sent to ${to} — subject: "${payload.subject}"`)
   return data
 }
 
