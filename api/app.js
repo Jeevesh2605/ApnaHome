@@ -10,17 +10,21 @@ import matchRoutes from './routes/match.route.js'
 import chatRoutes from './routes/chat.route.js'
 
 const app = express()
-const ALLOWED_ORIGINS = [
-  process.env.CLIENT_URL,        // set in Render dashboard: https://apnahome-client.onrender.com
-  'http://localhost:5173',        // Vite dev server
-  'http://localhost:4173',        // Vite preview
-].filter(Boolean)
+
+// Allow any localhost port (Vite can use 5173, 5174, etc.)
+// and the deployed Vercel client URL set via CLIENT_URL env var
+const isAllowedOrigin = (origin) => {
+  if (!origin) return true                          // curl / Postman / server-to-server
+  if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) return true  // any localhost port
+  if (/^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) return true
+  if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) return true
+  return false
+}
 
 app.use(cors({
   origin: (origin, cb) => {
-    // allow REST tools (Postman, curl) or known origins
-    if (!origin || ALLOWED_ORIGINS.includes(origin)) return cb(null, true)
-    cb(new Error(`CORS blocked: ${origin}`))
+    if (isAllowedOrigin(origin)) return cb(null, true)
+    cb(null, false)   // silently block unknown origins
   },
   credentials: true,
 }))

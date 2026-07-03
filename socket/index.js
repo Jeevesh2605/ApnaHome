@@ -24,11 +24,13 @@ const db = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_R
 const httpServer = createServer()
 const io = new Server(httpServer, {
   cors: {
-    origin: [
-      process.env.CLIENT_URL || 'http://localhost:5173',
-      'http://localhost:5173',
-      'http://localhost:4173',
-    ],
+    origin: (origin, cb) => {
+      if (!origin) return cb(null, true)
+      if (/^https?:\/\/localhost(:\d+)?$/.test(origin)) return cb(null, true)
+      if (/^https?:\/\/127\.0\.0\.1(:\d+)?$/.test(origin)) return cb(null, true)
+      if (process.env.CLIENT_URL && origin === process.env.CLIENT_URL) return cb(null, true)
+      cb(null, false)
+    },
     credentials: true,
   },
 })
