@@ -23,7 +23,14 @@ const db = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_R
 
 const httpServer = createServer()
 const io = new Server(httpServer, {
-  cors: { origin: '*' }
+  cors: {
+    origin: [
+      process.env.CLIENT_URL || 'http://localhost:5173',
+      'http://localhost:5173',
+      'http://localhost:4173',
+    ],
+    credentials: true,
+  },
 })
 
 // Middleware: verify JWT before socket connection
