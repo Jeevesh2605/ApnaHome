@@ -3,7 +3,12 @@ import { Server } from 'socket.io'
 import { createClient } from '@supabase/supabase-js'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
-dotenv.config({ path: '../api/.env' })
+import { fileURLToPath } from 'url'
+import path from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+dotenv.config({ path: path.resolve(__dirname, '../api/.env') })
 
 const db = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
 
