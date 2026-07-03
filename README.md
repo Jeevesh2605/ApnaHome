@@ -208,7 +208,7 @@ Frontend runs on `http://localhost:5173`
 |---|---|
 | API | `https://apnahome-api.onrender.com` |
 | Socket | `https://apnahome-socket.onrender.com` |
-| Frontend | `https://apnahome.vercel.app` |
+| Frontend | `[https://apnahome.vercel.app](https://apnahome-nu.vercel.app/)` |
 
 > ⚠️ Render free tier spins down after 15 mins inactivity — first request may take ~30 seconds
 
