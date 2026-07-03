@@ -6,9 +6,16 @@ A full-stack platform where **owners list spare rooms** and **tenants find compa
 
 ## 📸 Screenshots
 
-> UI screenshots coming soon
-
 <!-- Add screenshots here after UI is built -->
+<img width="1470" height="834" alt="Screenshot 2026-07-03 at 12 43 22 PM" src="https://github.com/user-attachments/assets/3d0081ce-50c5-423b-946c-e6a0ed47e7b8" />
+
+<img width="1470" height="834" alt="Screenshot 2026-07-03 at 12 43 37 PM" src="https://github.com/user-attachments/assets/b40c3f5e-25f6-443e-9497-cea08d81741b" />
+
+<img width="1470" height="835" alt="Screenshot 2026-07-03 at 12 43 49 PM" src="https://github.com/user-attachments/assets/eea67e80-c39a-4422-a053-99684a181b94" />
+
+<img width="1470" height="835" alt="Screenshot 2026-07-03 at 12 43 56 PM" src="https://github.com/user-attachments/assets/754d5611-f029-40a3-b8a9-2368c6cd24a3" />
+
+
 <!-- ![Landing Page](./docs/screenshots/landing.png) -->
 <!-- ![Listings Page](./docs/screenshots/listings.png) -->
 <!-- ![Chat](./docs/screenshots/chat.png) -->
