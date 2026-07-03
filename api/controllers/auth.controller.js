@@ -81,9 +81,26 @@ export const googleAuth = async (req, res) => {
     const decoded = await getAuth().verifyIdToken(idToken)
     const { email, name, uid } = decoded
 
-    // Step 2: Check if user exists
+    // Step 2: Check if user exists by firebase_uid first
     let { data: user } = await db
       .from('users').select('*').eq('firebase_uid', uid).single()
+
+    // Step 2b: Fallback — check by email (e.g. previously registered manually)
+    if (!user) {
+      const { data: existingByEmail } = await db
+        .from('users').select('*').eq('email', email).single()
+
+      if (existingByEmail) {
+        // Link their Google UID to the existing account
+        const { data: linked, error: linkErr } = await db
+          .from('users')
+          .update({ firebase_uid: uid, auth_provider: 'google' })
+          .eq('id', existingByEmail.id)
+          .select().single()
+        if (linkErr) throw linkErr
+        user = linked
+      }
+    }
 
     // Step 3: First time Google login — create user
     if (!user) {
