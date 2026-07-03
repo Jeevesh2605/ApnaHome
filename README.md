@@ -208,7 +208,7 @@ Frontend runs on `http://localhost:5173`
 |---|---|
 | API | `https://apnahome-api.onrender.com` |
 | Socket | `https://apnahome-socket.onrender.com` |
-| Frontend | `[https://apnahome.vercel.app](https://apnahome-nu.vercel.app/)` |
+| Frontend | `https://apnahome-nu.vercel.app` |
 
 > ⚠️ Render free tier spins down after 15 mins inactivity — first request may take ~30 seconds
 
@@ -377,8 +377,13 @@ messages         → id, interest_id, sender_id, content, created_at
 7. All subsequent API calls use this JWT only
 ```
 
+## Backup Google Drive Link
+
+```
+[Google Drive Link](https://drive.google.com/drive/folders/1GJxRHbMSrsxx7vV0KQ6vQHkHTPrlInsQ?usp=share_link)
+```
 ---
 ```
 This Readme.md is written with the help of AI
-
 ```
+
