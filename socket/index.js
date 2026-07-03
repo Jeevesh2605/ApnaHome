@@ -10,6 +10,15 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 dotenv.config({ path: path.resolve(__dirname, '../api/.env') })
 
+// Validate required environment variables before starting
+const REQUIRED_ENV_VARS = ['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY', 'JWT_SECRET']
+const missing = REQUIRED_ENV_VARS.filter((key) => !process.env[key])
+if (missing.length > 0) {
+  console.error(`[socket] Missing required environment variables: ${missing.join(', ')}`)
+  console.error('[socket] Set these in your Render service environment settings.')
+  process.exit(1)
+}
+
 const db = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY)
 
 const httpServer = createServer()
@@ -69,5 +78,5 @@ io.on('connection', (socket) => {
   })
 })
 
-const PORT = process.env.SOCKET_PORT || 3001
-httpServer.listen(PORT, () => console.log(`Socket server running on port ${PORT}`))
+const PORT = process.env.PORT || process.env.SOCKET_PORT || 3001
+httpServer.listen(PORT, '0.0.0.0', () => console.log(`Socket server running on port ${PORT}`))
